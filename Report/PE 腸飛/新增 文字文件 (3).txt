@@ -1,0 +1,12 @@
+int CH[3][M + 1];
+		for(int i = 0 ; i < 3 ; i++)
+		{
+			for(int j = 0 ; j <= M ; j++)
+			{
+				int ima = *(ch + (i * M) + j);
+				CH[i][j] = ima;
+			}
+		}
+
+
+

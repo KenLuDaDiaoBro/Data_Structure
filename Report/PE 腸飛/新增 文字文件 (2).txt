@@ -1,0 +1,45 @@
+int step = M / 2;
+		if(N < step)
+		{
+			step = N;
+		}
+		
+		int move_step = 0;
+		long long best = CH[0][now] - CH[2][now] * CH[1][now];
+		if(best < 0)
+		{
+			best = 0;
+		}
+		int best_index = now;
+		for(int i  = 1 ; i <= step ; i++)
+		{
+			int move_up = now + i;
+			if(now + i >= M)
+			{
+				move_up = -1 + i;
+			}
+			int move_down = now - i;
+			if(now - i < 0)
+			{
+				move_down = M - i;
+			}
+			int mo_up = CH[0][move_up] - CH[2][move_up] * CH[1][move_up];
+			int mo_down = CH[0][move_down] - CH[2][move_down] * CH[1][move_down];
+			int watch = (CH[0][now] - CH[2][now] * CH[1][now] + CH[0][now] - (CH[2][now] + i) * CH[1][now]) * (i + 1) / 2;
+			if(mo_up >= watch && mo_up >= best)
+			{
+				best = mo_up;
+				best_index = move_up;
+				move_step = i;
+			}
+			if(mo_down >= watch && mo_down >= best)
+			{
+				best = mo_down;
+				best_index = move_down;
+				move_step = i;
+			}
+		}
+		cout << "best " << best << endl; 
+		CH[2][best_index]++;
+		int* Ch = &CH[0][0];
+		return find(Ch , M , N - move_step - 1 , best_index) + best;

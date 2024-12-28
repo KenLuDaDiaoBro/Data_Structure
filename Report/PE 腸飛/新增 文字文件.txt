@@ -1,0 +1,83 @@
+if(N > 0)
+	{
+		
+		bool Allo = true;
+		for(int i = 0 ; i < M ; i++)
+		{
+			if(CH[2][i] > 0)
+			{
+				Allo = false;
+			}
+		}
+		if(Allo = true)
+		{
+			int* Ch = &CH[0][0];
+			int C1 = 0;
+			int C2 = 0;
+			int C3 = 0;
+			N--;
+			if(N > 1)
+			{
+				if(now + 1 == M)//up
+				{
+					C1 = find(Ch , M , N , 0);
+				}
+				else
+				{
+					C1 = find(Ch , M , N , now + 1);
+				}
+			}
+			else
+			{
+				C1 = 0;
+			}
+		
+			if(CH[2][now] <= 0)
+			{
+				C2 = 0;
+			}
+			else
+			{
+				CH[2][now] -= CH[1][now];
+				C2 = find(Ch , M , N , now) + CH[2][now] + CH[1][now];//watch
+				CH[2][now] += CH[1][now];
+			}
+			
+			if(N > 1)	
+			{
+				if(now == 0)//down
+				{
+					C3 = find(Ch , M , N , M - 1);
+				}
+				else
+				{
+					C3 = find(Ch , M , N , now - 1);
+				}
+			}					
+			else
+			{
+				C3 = 0;
+			}
+			
+			if(C1 >= C2 && C1 >= C3)
+			{
+				return C1;
+			}
+			else if(C2 >= C3)
+			{
+				return C2;
+			}
+			else
+			{
+				return C3;
+			}
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	else
+	{
+		return 0;
+	}
